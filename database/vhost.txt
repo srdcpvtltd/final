@@ -1,0 +1,37 @@
+# http
+<VirtualHost *:80>
+  ServerAdmin webmaster@localhost
+  DocumentRoot /var/www/html/sarai/public
+  ServerName saraibbsrupd.disha.gov.in
+
+  <Directory /var/www/html/sarai>
+    Options Indexes FollowSymLinks MultiViews
+    AllowOverride All
+    Allow from all    
+  </Directory>
+
+  ErrorLog ${APACHE_LOG_DIR}/error.log
+  CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>
+
+# https
+<VirtualHost *:443>
+  ServerAdmin webmaster@localhost
+  DocumentRoot /var/www/html/sarai/public
+  ServerName saraibbsrupd.disha.gov.in
+
+  # Your SSL configuration. Update the File and KeyFile information
+  # below to point to your SSL certificate.
+  SSLEngine on
+  SSLCertificateFile "/etc/ssl/certs/ssl-cert-snakeoil.pem"
+  SSLCertificateKeyFile "/etc/ssl/private/ssl-cert-snakeoil.key"
+
+  <Directory /var/www/html/sarai>
+    Options Indexes FollowSymLinks MultiViews
+    AllowOverride All
+    Allow from all    
+  </Directory>
+
+  ErrorLog ${APACHE_LOG_DIR}/error.log
+  CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>

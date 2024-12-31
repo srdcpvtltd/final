@@ -1,4 +1,4 @@
-<VirtualHost *:443>
+<VirtualHost *:80>
         # The ServerName directive sets the request scheme, hostname and port that
         # the server uses to identify itself. This is used when creating
         # redirection URLs. In the context of virtual hosts, the ServerName
@@ -9,13 +9,11 @@
         #ServerName www.example.com
 
         ServerAdmin yourmail@example.com
-        ServerName saraibbsrupd.odisha.gov.in
-        ServerAlias www.saraibbsrupd.odisha.gov.in
-        DocumentRoot /var/www/html/sarai/public
-        SSLEngine on
-        SSLCertificateFile /etc/ssl/ssl/STAR_odisha_gov_in.crt
-        SSLCertificateChainFile /path/to/USERTrustRSAAAACA.crt
-        <Directory /var/www/html/sarai/public>
+        ServerName mmhapu.ac.in
+        ServerAlias www.mmhapu.ac.in
+        DocumentRoot /var/www/html/mmhapu/public
+
+        <Directory /var/www/html/mmhapu/public>
            Options -Indexes +FollowSymLinks +MultiViews
             AllowOverride All
             Require all granted
@@ -25,7 +23,7 @@
                #SetHandler "proxy:fcgi://127.0.0.1:9000"
             </FilesMatch>
         </Directory>
-# Available loglevels: trace8, ..., trace1, debug, info, notice, warn,
+ # Available loglevels: trace8, ..., trace1, debug, info, notice, warn,
         # error, crit, alert, emerg.
         # It is also possible to configure the loglevel for particular
         # modules, e.g.
@@ -41,6 +39,6 @@
         # after it has been globally disabled with "a2disconf".
         #Include conf-available/serve-cgi-bin.conf
 RewriteEngine on
-RewriteCond %{SERVER_NAME} =saraibbsrupd.odisha.gov.in
+RewriteCond %{SERVER_NAME} =mmhapu.ac.in
 RewriteRule ^ https://%{SERVER_NAME}%{REQUEST_URI} [END,NE,R=permanent]
 </VirtualHost>

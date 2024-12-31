@@ -1,0 +1,29 @@
+Converting a PFX file for use with Apache
+
+STEP-1
+Extracting the Server Certificate from PKCS#12
+
+$ openssl pkcs12 -in STAR_odisha_gov_in.pfx -clcerts -nokeys | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' > star_odisha_gov_in.crt
+
+NOTE: 	When asked for Import Password: 
+	Enter 'osdc' as Import Password.
+
+STEP-2
+Extracting the Private Key from PKCS#12
+
+$ openssl pkcs12 -in STAR_odisha_gov_in.pfx -nocerts -nodes | sed -ne '/-BEGIN PRIVATE KEY-/,/-END PRIVATE KEY-/p' > star_odisha_gov_in.key
+
+NOTE: 	When asked for Import Password: 
+	Enter 'osdc' as Import Password.
+
+STEP-3
+Extracting the CA Certificate Chain / Bundle from PKCS#12
+
+$ openssl pkcs12 -in STAR_odisha_gov_in.pfx -cacerts -nokeys -chain | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' > CABundle.crt
+
+Final:
+In the current directory, you will find 3 files named:
+	star_odisha_gov_in.crt
+	star_odisha_gov_in.key
+	CABundle.crt
+Generated from the commands executed above. These 3 files will be used in your apache/nginx server configuration.

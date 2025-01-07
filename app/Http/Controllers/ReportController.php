@@ -525,10 +525,8 @@ class ReportController extends Controller
             $sql->whereIn('hotel_id', $hotelProfileIds);
             $inputs['police_station'] = $request->get('police_station');
             }
-
-        $ageArr = \DB::table('bookings')->groupBy('age')->orderBy('age', 'ASC')->pluck('age');
-
-        return view('admin.report.simpleReport', compact('countries', 'bookings', 'inputs', 'states', 'cities', 'police_stations', 'ageArr'));
+       $ageArr = \DB::table('bookings')->groupBy('age')->orderBy('age', 'ASC')->pluck('age');
+       return view('admin.report.simpleReport', compact('countries', 'bookings', 'inputs', 'states', 'cities', 'police_stations', 'ageArr'));
     }
 
     public function adminexport(Request $request)

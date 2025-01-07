@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 @section('breadcrumb')
-<span class="breadcrumb-item active">{{ __('Guest Detail') }}</span>
+<span class="breadcrumb-item active">{{ __('Guest Details') }}</span>
 @endsection
 @section('title')
 {{ __(' Dashboard') }}
@@ -152,7 +152,7 @@
                         <tr>
                             <th scope="col">Hotel name</th>
                             <th scope="col">Hotel Address</th>
-                            <th scope="col">Guest name</th>
+                            <th scope="col">Guest Name</th>
                             <th scope="col">Mobile Number</th>
                             <th scope="col">Email</th>
                             <th scope="col">Guest From</th>

@@ -501,7 +501,11 @@ class ReportController extends Controller
             });
             $inputs['status'] = $request->get('status');
         }
-
+       if ($request->get('police_station') != '') {
+	        $hotelProfileIds = HotelProfile::where('police_station', $request->get('police_station'))->pluck('id');
+            $sql->whereIn('hotel_id', $hotelProfileIds);
+            $inputs['police_station'] = $request->get('police_station');
+            }
         if ($request->get('toAge') != '' && $request->get('fromAge') != '') {
 
             $sql->whereBetween('age', [$request->get('fromAge'), $request->get('toAge')]);
@@ -521,11 +525,6 @@ class ReportController extends Controller
         $bookings = $sql->paginate(20);
         $countries = \DB::table('countries')->get();
         $police_stations = \DB::table('police_stations')->get();
-        if ($request->get('police_station') != '') {
-	        $hotelProfileIds = HotelProfile::where('police_station', $request->get('police_station'))->pluck('id');
-            $sql->whereIn('hotel_id', $hotelProfileIds);
-            $inputs['police_station'] = $request->get('police_station');
-            }
        $ageArr = \DB::table('bookings')->groupBy('age')->orderBy('age', 'ASC')->pluck('age');
        return view('admin.report.simpleReport', compact('countries', 'bookings', 'inputs', 'states', 'cities', 'police_stations', 'ageArr'));
     }

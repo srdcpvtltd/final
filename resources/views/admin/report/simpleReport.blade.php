@@ -95,7 +95,7 @@
                             <div>
                                 <label>Transport</label>
                                 <select name="transport" class="form-select form-select-lg form-control" >
-                                    <option value="">Select Transport</option>
+                                    <option value="">Transport</option>
                                     <option value="car"   @if(isset($inputs) && isset($inputs['transport']) && $inputs['transport'] == 'car') selected @endif>Car</option>
                                     <option value="bus"   @if(isset($inputs) && isset($inputs['transport']) && $inputs['transport'] == 'bus') selected @endif>Bus</option>
                                     <option value="train"     @if(isset($inputs) && isset($inputs['transport']) && $inputs['transport'] == 'train') selected @endif>Train</option>

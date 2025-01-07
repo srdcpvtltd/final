@@ -46,6 +46,7 @@ class PoliceController extends Controller
         try {
             $policestation = new PoliceStation();
             $policestation->code = $request->name;
+            $policestation->desc = $request->desc;
             $policestation->city_id = $request->city_id;
             $policestation->save();
 
@@ -99,6 +100,7 @@ class PoliceController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
+            'desc' => 'required|string|max:255',
             'city_id' => 'required|string|max:255',
         ]);
         $update = PoliceStation::find($id);
@@ -107,6 +109,7 @@ class PoliceController extends Controller
                 ->with('message', __('Police Station not found.'));
         }
         $update->code = $request->name;
+        $update->desc = $request->desc;
         $update->city_id = $request->city_id;
         $update->save();
         return redirect()->route('policestation.index')

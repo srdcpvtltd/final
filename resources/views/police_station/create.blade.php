@@ -21,6 +21,10 @@
                     {!! Form::text('name', null, ['placeholder' => __('Enter Police Station'),  'class' => 'form-control']) !!}
                 </div>
                 <div class="form-group">
+                    {{ Form::label('desc', __('Description')) }}
+                {!! Form::text('desc', null, ['placeholder' => __('Enter Description'),  'class' => 'form-control']) !!}
+                </div>
+                <div class="form-group">
                     <label>Country</label>
                     <select  class="form-select form-select-lg form-control select2" name="country_id" id="country">
                         <option value="" selected>Select country</option>

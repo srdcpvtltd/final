@@ -520,7 +520,11 @@ class ReportController extends Controller
         }
         $bookings = $sql->paginate(20);
         $countries = \DB::table('countries')->get();
-        $police_stations = \DB::table('police_stations')->get();
+        if ($request->get('police_station') != '') {
+            $hotelProfileIds = HotelProfile::where('police_station', $request->get('police_station'))->pluck('id');
+            $sql->whereIn('hotel_id', $hotelProfileIds);
+            $inputs['police_station'] = $request->get('police_station');
+        }
 
         $ageArr = \DB::table('bookings')->groupBy('age')->orderBy('age', 'ASC')->pluck('age');
 

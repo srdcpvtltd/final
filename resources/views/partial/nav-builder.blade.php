@@ -44,7 +44,7 @@
             </li>
             <li class="c-sidebar-nav-item">
                 <a class="c-sidebar-nav-link" href="{{ route('admin.suspicious_checkins') }}">
-                    <i class="cil-user c-sidebar-nav-icon"></i>{{ __('Suspicicous Check Ins ') }}
+                    <i class="cil-user c-sidebar-nav-icon"></i>{{ __('Suspicious Check Ins ') }}
                 </a>
             </li>
             <li class="c-sidebar-nav-item">

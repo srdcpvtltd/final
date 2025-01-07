@@ -52,7 +52,7 @@
                         <div class="col">
                             <label>Country</label>
                             <select  class="form-select form-select-lg form-control" name="country" id="country">
-                                <option value="" selected>Select country</option>
+                                <option value="" selected>Select Country</option>
                                 @foreach ($countries as $country)
                                 <option value="{{ $country->id }}" @if(isset($inputs) && isset($inputs['country']) && $inputs['country'] == $country->id) selected @endif>{{ $country->name }}</option>
                                 @endforeach

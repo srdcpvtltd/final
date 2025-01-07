@@ -7,6 +7,7 @@ $company_favicon = UtilityFacades::getValByName('company_favicon');
 <html dir="{{ env('SITE_RTL') == 'on' ? 'rtl' : '' }}" lan="en">
 
 <head>
+<meta name="google" content="notranslate" />
     <base href="./">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">

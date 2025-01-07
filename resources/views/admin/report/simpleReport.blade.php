@@ -165,7 +165,7 @@
                             <th scope="col">State</th>
                             <th scope="col">Dist</th>
                             <th scope="col">Pin</th>
-                            <th scope="col">Mean Of Transport</th>
+                            <th scope="col">Means Of Transport</th>
                             <th scope="col">Number Of Children</th>
                             <th scope="col">Number Of Adults</th>
                             <th scope="col">Extra Guest Name</th>

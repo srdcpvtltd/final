@@ -36,7 +36,7 @@
                                 <input type="text" required class="form-control" name="search" value="{{(isset($inputs) && isset($inputs['search'])) ? $inputs['search'] : ''}}" />
                             </div>
                         </div>
-                        
+
                         <div class="col" style="top: 30px;">
                             <button type="button" class="btn btn-primary" onclick="getFilter()">Filter</button>
                             <button type="button" class="btn btn-success" onclick="getExport()">Export</button>
@@ -47,8 +47,9 @@
                 <table class="table">
                     <thead>
                         <tr>
+                            <th scope="col">Sl No.</th>
                             <th scope="col">Hotel name</th>
-                            <th scope="col">Manage Name</th>
+                            <th scope="col">Manager Name</th>
                             <th scope="col">Manager Mobile Number</th>
                             <th scope="col">Owner Name</th>
                             <th scope="col">OwnnerMobile Number</th>
@@ -59,8 +60,9 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($hotels as $row)
+                        @foreach($hotels as $key => $row)
                         <tr>
+                            <td scope="col">{{$key + 1}}</td>
                             <td scope="col">{{$row->hotel_name}}</td>
                             <td scope="col">{{$row->manger_name}}</td>
                             <td scope="col">{{$row->manager_mobile}}</td>
@@ -92,7 +94,7 @@
 <script type="text/javascript">
     $(document).ready(function() {
 
-        
+
     });
 </script>
 @endsection

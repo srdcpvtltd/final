@@ -38,6 +38,7 @@ Route::get('get-states', [CountryDropdownController::class, 'getStates'])->name(
 Route::get('get-cities', [CountryDropdownController::class, 'getCities'])->name('getCities')->middleware(['auth','XSS','2fa',]);
 Route::get('get-policestaition', [CountryDropdownController::class, 'getPolicestation'])->name('getPolicestation')->middleware(['auth','XSS','2fa',]);
 Route::get('get-guest-details/', [GuestController::class, 'getGuestDetail'])->name('getGuestDetail')->middleware(['auth','XSS','2fa',]);
+Route::post('get_hotel', [GuestController::class, 'get_hotel'])->name('get_hotel');
 
 
 Route::get('/', [FrontEndController::class, 'index']);

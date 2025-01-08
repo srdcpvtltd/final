@@ -802,10 +802,12 @@ class ReportController extends Controller
             $sql->where('city', $request->get('city'));
             $inputs['city'] = $request->get('city');
         }
-        if ($request->get('police_station') != '') {
-            $sql->where('police_station', $request->get('police_station'));
-            $inputs['police_station'] = $request->get('police_station');
-        }
+          $user = Auth::user();
+            if ($user->hasRole('admin')) {
+                $police_stations = \DB::table('police_stations')->get();
+            } elseif ($user->hasRole('viewer')) {
+                $police_stations = \DB::table('police_stations')->where('city_id', Auth::user()->city)->get();
+                }
 
         if ($request->get('search') != '') {
             $searchQuery = $request->get('search');

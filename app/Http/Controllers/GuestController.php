@@ -236,9 +236,9 @@ class GuestController extends Controller
         return view('guest.pdfquickInvoice',compact('booking'));
     }
 public function get_hotel(Request $request){
-        $get_hotel = HotelProfile::where('police_station', $request->police_station)->get();
-        return response()->json($get_hotel);
-    }
+	$get_hotel = HotelProfile::where('police_station', $request->police_station)->get();
+	return response()->json($get_hotel);
+	}
     public function getGuestDetail(Request $request) {
 
         $booking = Booking::where('mobile_number',$request->mobile)->first();

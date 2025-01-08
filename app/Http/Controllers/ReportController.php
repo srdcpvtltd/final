@@ -440,6 +440,12 @@ class ReportController extends Controller
     public function adminindex(Request $request)
     {
         $inputs = [];
+        $user = Auth::user();
+        if ($user->hasRole('admin')) {
+            $police_stations = \DB::table('police_stations')->get();
+        } elseif ($user->hasRole('viewer')) {
+            $police_stations = \DB::table('police_stations')->where('city_id', Auth::user()->city)->get();
+            }
         $sql = Booking::with(['rooms', 'accompanies', 'nationalityName', 'country', 'state', 'city', 'hotelProfile'])
             ->orderBy('created_at', 'DESC');
         if ($request->get('searchFrom') != '' || $request->get('searchTo') != '') {
@@ -796,18 +802,21 @@ class ReportController extends Controller
     {
         $inputs = [];
         $sql = HotelProfile::orderBy('created_at', 'DESC');
-
+$user = Auth::user();
+        if ($user->hasRole('admin')) {
+            $police_stations = \DB::table('police_stations')->get();
+        } elseif ($user->hasRole('viewer')) {
+            $police_stations = \DB::table('police_stations')->where('city_id', Auth::user()->city)->get();
+            }
         $cities = \DB::table('cities')->whereNotNull('code')->get();
         if ($request->get('city') != '') {
             $sql->where('city', $request->get('city'));
             $inputs['city'] = $request->get('city');
         }
-          $user = Auth::user();
-            if ($user->hasRole('admin')) {
-                $police_stations = \DB::table('police_stations')->get();
-            } elseif ($user->hasRole('viewer')) {
-                $police_stations = \DB::table('police_stations')->where('city_id', Auth::user()->city)->get();
-                }
+        if ($request->get('police_station') != '') {
+            $sql->where('police_station', $request->get('police_station'));
+            $inputs['police_station'] = $request->get('police_station');
+        }
 
         if ($request->get('search') != '') {
             $searchQuery = $request->get('search');

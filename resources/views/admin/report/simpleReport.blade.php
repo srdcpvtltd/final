@@ -3,9 +3,14 @@
     <span class="breadcrumb-item active">{{ __('Guest Detail') }}</span>
 @endsection
 @section('title')
-    {{ __(' Dashboard') }}
+    {{ __('Report') }}
 @endsection
 @section('content')
+    <style>
+        .table-bordered {
+            border: 1px solid #ddd;
+        }
+    </style>
     <div class="container-fluid">
         @if (session()->has('success'))
             <div class="alert alert-success">
@@ -179,7 +184,7 @@
                         </div>
                     </form>
                     <div class="table-wrapper">
-                        <table class="table">
+                        <table class="table data_table table-bordered" style="border-collapse: collapse !important;">
                             <thead>
                                 <tr>
                                     <th scope="col">Sl No.</th>
@@ -301,10 +306,6 @@
                     </div>
                 </div>
             </div>
-            <div class="text-center">
-                {{ $bookings->links() }}
-            </div>
-
         </div>
     </div>
     <script src="{{ asset('js/jquery.min.js') }}"></script>
@@ -348,6 +349,8 @@
     </script>
 @endsection
 @push('scripts')
+    <script src="https://cdn.datatables.net/2.1.7/js/dataTables.js"></script>
+    <script src="https://cdn.datatables.net/2.1.7/js/dataTables.bootstrap4.js"></script>
     <script>
         function getExport(id) {
             $('.iframe-div').find('iframe').attr('src', "{{ url('/guest/quickinvoice/') }}/" + id);
@@ -362,24 +365,26 @@
             $('#reportSearch').attr('action', "{{ asset(url('admin/report/export')) }}");
             $('#reportSearch').submit();
         }
-    </script>
-    <script>
-        $(document).ready(function(){
-            $('#police_station').on('change',function(){
+
+        $(document).ready(function() {
+            new DataTable('.data_table');
+
+            $('#police_station').on('change', function() {
                 var police_station = $(this).val();
                 $.ajax({
-                    type : 'POST',
-                    url : "{{ route('get_hotel') }}",
-                    data : {
-                        police_station : police_station,
-                        _token : "{{ csrf_token() }}"
+                    type: 'POST',
+                    url: "{{ route('get_hotel') }}",
+                    data: {
+                        police_station: police_station,
+                        _token: "{{ csrf_token() }}"
                     },
-                    dataType : 'json',
-                    success : function(response) {
+                    dataType: 'json',
+                    success: function(response) {
                         $('#hotel').empty();
                         $('#hotel').html('<option value="">Choose hotel</option>');
-                        $.each(response, function(key, value){
-                            $('#hotel').append('<option value="' + value.id + '">' + value.hotel_name + '</option>');
+                        $.each(response, function(key, value) {
+                            $('#hotel').append('<option value="' + value.id + '">' +
+                                value.hotel_name + '</option>');
                         });
                     },
                 });

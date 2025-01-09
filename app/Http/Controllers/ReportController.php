@@ -528,7 +528,7 @@ class ReportController extends Controller
                 $inputs['toAge'] = $request->get('toAge');
             }
         }
-        $bookings = $sql->paginate(20);
+        $hotels = $sql->get();
         $countries = \DB::table('countries')->get();
         $police_stations = \DB::table('police_stations')->get();
        $ageArr = \DB::table('bookings')->groupBy('age')->orderBy('age', 'ASC')->pluck('age');

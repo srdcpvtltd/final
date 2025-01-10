@@ -440,12 +440,6 @@ class ReportController extends Controller
     public function adminindex(Request $request)
     {
         $inputs = [];
-        $user = Auth::user();
-        if ($user->hasRole('admin')) {
-            $police_stations = \DB::table('police_stations')->get();
-        } elseif ($user->hasRole('viewer')) {
-            $police_stations = \DB::table('police_stations')->where('city_id', Auth::user()->city)->get();
-            }
         $sql = Booking::with(['rooms', 'accompanies', 'nationalityName', 'country', 'state', 'city', 'hotelProfile'])
             ->orderBy('created_at', 'DESC');
         if ($request->get('searchFrom') != '' || $request->get('searchTo') != '') {
@@ -528,10 +522,30 @@ class ReportController extends Controller
                 $inputs['toAge'] = $request->get('toAge');
             }
         }
-        $hotels = $sql->get();
+        if ($request->get('police_station') != '') {
+            $hotelProfileIds = HotelProfile::where('police_station', $request->get('police_station'))->pluck('id');
+            $sql->whereIn('hotel_id', $hotelProfileIds);
+            $inputs['police_station'] = $request->get('police_station');
+        }
+        // dd($request->hotel);
+        if ($request->get('hotel') != '') {
+            $sql->where('hotel_id', $request->get('hotel'));
+            $inputs['hotel'] = $request->get('hotel');
+        }
+        $bookings = $sql->get();
         $countries = \DB::table('countries')->get();
-       $ageArr = \DB::table('bookings')->groupBy('age')->orderBy('age', 'ASC')->pluck('age');
-       return view('admin.report.simpleReport', compact('countries', 'bookings', 'inputs', 'states', 'cities', 'police_stations', 'ageArr','hotels'));
+        $user = Auth::user();
+        if ($user->hasRole('admin')) {
+            $police_stations = \DB::table('police_stations')->get();
+        } elseif ($user->hasRole('viewer')) {
+            $police_stations = \DB::table('police_stations')->where('city_id', Auth::user()->city)->get();
+        }
+        $hotels = HotelProfile::all();
+
+
+        $ageArr = \DB::table('bookings')->groupBy('age')->orderBy('age', 'ASC')->pluck('age');
+
+        return view('admin.report.simpleReport', compact('countries', 'bookings', 'inputs', 'states', 'cities', 'police_stations', 'ageArr', 'hotels'));
     }
 
     public function adminexport(Request $request)

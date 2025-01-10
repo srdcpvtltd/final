@@ -530,9 +530,8 @@ class ReportController extends Controller
         }
         $hotels = $sql->get();
         $countries = \DB::table('countries')->get();
-        $police_stations = \DB::table('police_stations')->get();
        $ageArr = \DB::table('bookings')->groupBy('age')->orderBy('age', 'ASC')->pluck('age');
-       return view('admin.report.simpleReport', compact('countries', 'bookings', 'inputs', 'states', 'cities', 'police_stations', 'ageArr'));
+       return view('admin.report.simpleReport', compact('countries', 'bookings', 'inputs', 'states', 'cities', 'police_stations', 'ageArr','hotels'));
     }
 
     public function adminexport(Request $request)
@@ -722,8 +721,13 @@ class ReportController extends Controller
                 $inputs['search'] = $searchQuery;
             }
 
-            $hotels = $sql->paginate(20);
+            $hotels = $sql->get();
+           $user = Auth::user();
+           if ($user->hasRole('admin')) {
             $police_stations = \DB::table('police_stations')->get();
+        } elseif ($user->hasRole('viewer')) {
+            $police_stations = \DB::table('police_stations')->where('city_id', Auth::user()->city)->get();
+            }
 
             return view('admin.report.HotelReport', compact('hotels', 'inputs', 'cities', 'police_stations'));
         } else {
